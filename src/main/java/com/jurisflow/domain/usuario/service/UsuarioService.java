@@ -149,10 +149,24 @@ public class UsuarioService {
     }
 
     /**
+     * Obtém o ID do usuário logado.
+     */
+    public UUID getUsuarioIdFromContext() {
+        return getUsuarioFromContext().getId();
+    }
+
+    /**
      * Obtém o ID do escritório do usuário logado.
      */
     public UUID getEscritorioIdFromContext() {
         return getUsuarioFromContext().getEscritorio().getId();
+    }
+
+    /**
+     * Obtém o escritório do usuário logado.
+     */
+    public Escritorio getEscritorioFromContext() {
+        return getUsuarioFromContext().getEscritorio();
     }
 }
 
