@@ -176,6 +176,15 @@ integrations:
     token: ${WHATSAPP_TOKEN:}
 
 # ═══════════════════════════════════════════════════════════════════════════
+# JURISFLOW AI — Motor Python (FastAPI RAG)
+# ═══════════════════════════════════════════════════════════════════════════
+jurisflow:
+  ai:
+    python:
+      enabled: ${JURISFLOW_AI_PYTHON_ENABLED:true}
+      url: ${JURISFLOW_AI_PYTHON_URL:http://localhost:8090}
+
+# ═══════════════════════════════════════════════════════════════════════════
 # LOGGING
 # ═══════════════════════════════════════════════════════════════════════════
 logging:

@@ -27,7 +27,9 @@ public class IntegrationConfig extends BaseEntity {
         // IA
         OPENAI,
         ANTHROPIC,
-        
+        AZURE_OPENAI,
+        AZURE_AI_FOUNDRY,
+        COPILOT_STUDIO,
         // Tribunais
         PJE,
         ESAJ,

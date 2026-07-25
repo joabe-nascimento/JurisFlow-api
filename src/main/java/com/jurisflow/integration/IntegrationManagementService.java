@@ -230,6 +230,9 @@ public class IntegrationManagementService {
         return switch (type) {
             case OPENAI -> "OpenAI (GPT-4)";
             case ANTHROPIC -> "Anthropic (Claude)";
+            case AZURE_OPENAI -> "Azure OpenAI";
+            case AZURE_AI_FOUNDRY -> "Azure AI Foundry";
+            case COPILOT_STUDIO -> "Microsoft Copilot Studio";
             case PJE -> "PJe - Processo Judicial Eletrônico";
             case ESAJ -> "e-SAJ (TJSP)";
             case PROJUDI -> "PROJUDI";
@@ -261,6 +264,9 @@ public class IntegrationManagementService {
         return switch (type) {
             case OPENAI -> "IA para análise de documentos, geração de peças e previsão de resultados";
             case ANTHROPIC -> "IA avançada para análise jurídica e geração de conteúdo";
+            case AZURE_OPENAI -> "LLMs enterprise via Microsoft Azure (GPT-4, embeddings)";
+            case AZURE_AI_FOUNDRY -> "Orquestração de agentes, RAG e pipelines de IA no Azure";
+            case COPILOT_STUDIO -> "Agentes conversacionais e automações Microsoft 365";
             case PJE -> "Consulta e peticionamento no Processo Judicial Eletrônico";
             case ESAJ -> "Integração com tribunais de São Paulo";
             case PROJUDI -> "Integração com tribunais estaduais";
@@ -290,7 +296,7 @@ public class IntegrationManagementService {
 
     private String getIntegrationCategory(IntegrationType type) {
         return switch (type) {
-            case OPENAI, ANTHROPIC -> "Inteligência Artificial";
+            case OPENAI, ANTHROPIC, AZURE_OPENAI, AZURE_AI_FOUNDRY, COPILOT_STUDIO -> "Inteligência Artificial";
             case PJE, ESAJ, PROJUDI, DATAJUD -> "Tribunais";
             case RECEITA_FEDERAL, BACENJUD, RENAJUD, SISBAJUD -> "Órgãos Públicos";
             case WHATSAPP, TWILIO, SENDGRID, SLACK, TEAMS -> "Comunicação";
@@ -303,7 +309,7 @@ public class IntegrationManagementService {
 
     private String getIntegrationIcon(IntegrationType type) {
         return switch (type) {
-            case OPENAI, ANTHROPIC -> "brain";
+            case OPENAI, ANTHROPIC, AZURE_OPENAI, AZURE_AI_FOUNDRY, COPILOT_STUDIO -> "brain";
             case PJE, ESAJ, PROJUDI, DATAJUD -> "building-library";
             case RECEITA_FEDERAL, BACENJUD, RENAJUD, SISBAJUD -> "landmark";
             case WHATSAPP -> "message-circle";

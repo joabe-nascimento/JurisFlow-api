@@ -1,0 +1,9 @@
+feat: hub de IA com agentes, RAG e integrações Azure
+
+- Centro de IA: chat Copilot, agentes especializados, base RAG e ferramentas LLM
+- RAGKnowledgeService com indexação e busca por relevância
+- AIAgentService com 6 agentes (copilot, pesquisador, redator, analista, prazos, atendimento)
+- Modo demonstração quando LLM não configurado (respostas contextuais + RAG)
+- Suporte Azure OpenAI na AIService
+- Novos tipos de integração: AZURE_OPENAI, AZURE_AI_FOUNDRY, COPILOT_STUDIO
+- Endpoints REST: chat, agents, rag/documents, rag/search
