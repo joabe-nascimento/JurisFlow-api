@@ -324,7 +324,7 @@ VALUES (
     '00000000-0000-0000-0000-000000000001',
     'Administrador',
     'admin@jurisflow.com.br',
-    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZRGdjGj/n3.sPLfK3n4W9OKGqGpSe',
+    '$2a$10$GsRYf01tp66kwGoDYz/UB..k7oe2p9ILwQPAfD/u22mGpqacSWhu6',
     'ADMIN',
     TRUE
 );
