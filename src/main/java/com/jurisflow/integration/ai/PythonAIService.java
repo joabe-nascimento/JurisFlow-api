@@ -162,8 +162,25 @@ public class PythonAIService {
             return Optional.of(AIService.AIResponse.success(data.answer, meta));
         } catch (Exception e) {
             log.warn("Bruna chat via Python failed: {}", e.getMessage());
-            return Optional.empty();
+            String detail = e.getMessage() != null ? e.getMessage() : "Erro desconhecido";
+            if (detail.contains("429") || detail.toLowerCase(Locale.ROOT).contains("rate limit")) {
+                return Optional.of(AIService.AIResponse.error(
+                    "Limite diário do LLM atingido (OpenRouter free: 50 requisições/dia). "
+                    + "Configure GROQ_API_KEY no JurisFlow-ai-service/.env como fallback grátis "
+                    + "ou aguarde o reset do provedor."
+                ));
+            }
+            return Optional.of(AIService.AIResponse.error(
+                "Motor de IA indisponível: " + sanitizePythonError(detail)
+            ));
         }
+    }
+
+    private String sanitizePythonError(String detail) {
+        if (detail.length() > 280) {
+            return detail.substring(0, 280) + "...";
+        }
+        return detail;
     }
 
     public Optional<AIPipelineService.PipelineRunResult> runPipeline(

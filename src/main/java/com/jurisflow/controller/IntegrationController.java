@@ -187,24 +187,26 @@ public class IntegrationController {
             @RequestBody ChatRequest request) {
         UUID escritorioId = usuarioService.getEscritorioIdFromContext();
 
-        // Python + OpenRouter (gratuito) — sempre preferir LLM real via Bruna
+        // Python + OpenRouter / Groq — sempre preferir LLM real via Bruna
         if (pythonAIService.isAvailable()) {
             Optional<AIResponse> bruna = pythonAIService.brunaChat(escritorioId, request);
             if (bruna.isPresent()) {
-                recordAi(escritorioId, "bruna-chat", bruna.get());
-                return ResponseEntity.ok(ApiResponse.success(bruna.get()));
+                AIResponse response = bruna.get();
+                recordAi(escritorioId, "bruna-chat", response);
+                if (response.isSuccess()) {
+                    return ResponseEntity.ok(ApiResponse.success(response));
+                }
+                return ResponseEntity.status(503)
+                        .body(ApiResponse.error(response.getError()));
             }
+            return ResponseEntity.status(503)
+                    .body(ApiResponse.error(
+                            "Falha ao processar com o motor de IA Python. Verifique os logs do JurisFlow-ai-service."));
         }
 
-        String agentId = request.getAgentId();
-        String ragContext = "";
-        if (request.isUseRag()) {
-            RAGSearchResult search = ragService.search(escritorioId, request.getMessage(), 4);
-            ragContext = ragService.buildContext(search);
-        }
-        AIResponse response = aiService.chat(escritorioId, request, ragContext);
-        recordAi(escritorioId, "chat", response);
-        return ResponseEntity.ok(ApiResponse.success(response));
+        return ResponseEntity.status(503)
+                .body(ApiResponse.error(
+                        "Serviço de IA Python offline. Inicie JurisFlow-ai-service na porta 8090."));
     }
 
     @GetMapping("/ai/agents")

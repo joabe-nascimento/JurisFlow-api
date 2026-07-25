@@ -32,13 +32,13 @@ public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
         SELECT c FROM Cliente c 
         WHERE c.escritorio.id = :escritorioId 
         AND c.deletedAt IS NULL
-        AND (:nome IS NULL OR LOWER(c.nome) LIKE LOWER(CONCAT('%', :nome, '%')))
+        AND (:nomePattern IS NULL OR LOWER(c.nome) LIKE :nomePattern)
         AND (:cpfCnpj IS NULL OR c.cpfCnpj = :cpfCnpj)
         AND (:ativo IS NULL OR c.ativo = :ativo)
     """)
     Page<Cliente> findByFiltro(
         @Param("escritorioId") UUID escritorioId,
-        @Param("nome") String nome,
+        @Param("nomePattern") String nomePattern,
         @Param("cpfCnpj") String cpfCnpj,
         @Param("ativo") Boolean ativo,
         Pageable pageable

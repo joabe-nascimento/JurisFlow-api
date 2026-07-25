@@ -38,7 +38,16 @@ public class ClienteService {
      */
     public PageResponse<ClienteDTO> listar(String nome, String cpfCnpj, Boolean ativo, Pageable pageable) {
         UUID escritorioId = usuarioService.getEscritorioIdFromContext();
-        Page<Cliente> page = clienteRepository.findByFiltro(escritorioId, nome, cpfCnpj, ativo, pageable);
+
+        String nomePattern = null;
+        if (nome != null && !nome.isBlank()) {
+            nomePattern = "%" + nome.toLowerCase() + "%";
+        }
+        if (cpfCnpj != null && cpfCnpj.isBlank()) {
+            cpfCnpj = null;
+        }
+
+        Page<Cliente> page = clienteRepository.findByFiltro(escritorioId, nomePattern, cpfCnpj, ativo, pageable);
         Page<ClienteDTO> dtoPage = page.map(clienteMapper::toDTO);
         return PageResponse.of(dtoPage);
     }
